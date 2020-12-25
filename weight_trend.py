@@ -9,7 +9,7 @@ from matplotlib.ticker import MaxNLocator
 def read_data():
     '''Read data from the csv file '''
 
-    df = pd.read_csv('./weight_data.csv', parse_dates=['Date'], index_col = ['Date'])
+    df = pd.read_csv('D:\\GitHub\\FlexWorkout\\weight_data.csv', parse_dates=['Date'], index_col = ['Date'])
 
     return df
 
