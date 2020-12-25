@@ -11,13 +11,14 @@ def get_data():
 
 def make_df(date, weight):
     today = format(date.day, '.0f') + ' - ' + format(date.month, '.0f') + ' - ' + format(date.year, '.0f')
-    df = pd.DataFrame(data = [weight], index = [today])
+    df = pd.DataFrame(data = [[today, weight]])
     return df
+
 
 def main():
     date, weight = get_data()
     df = make_df(date, weight)
-    df.to_csv('./weight_data.csv', mode='a')
+    df.to_csv('./weight_data.csv', mode='a', index=False, header=False)
 
 
 if __name__ == "__main__":
