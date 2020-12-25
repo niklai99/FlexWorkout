@@ -3,13 +3,12 @@ import datetime as dt
 
 
 def get_data():
-    date = dt.datetime.today()
+    date = dt.date.today()
     weight = input('Inserisci il peso di oggi\n')
     return date, weight
 
 def make_df(date, weight):
-    today = format(date.day, '.0f') + ' - ' + format(date.month, '.0f') + ' - ' + format(date.year, '.0f')
-    df = pd.DataFrame(data = [[today, weight]])
+    df = pd.DataFrame(data = [[date, weight]])
     return df
 
 
