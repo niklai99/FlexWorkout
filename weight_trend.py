@@ -5,6 +5,7 @@ import sys
 import matplotlib.dates as mdates
 from matplotlib.dates import DateFormatter
 from matplotlib.ticker import MaxNLocator
+import matplotlib
 
 def read_data():
     '''Read data from the csv file '''
@@ -12,6 +13,11 @@ def read_data():
     df = pd.read_csv('D:\\GitHub\\FlexWorkout\\weight_data.csv', parse_dates=['Date'], index_col = ['Date'])
 
     return df
+
+def split_data(df):
+    df_y = df[df['Training'].str.contains('y')]
+    df_n = df[df['Training'].str.contains('n')]
+    return df_y, df_n
 
 def line_plot_settings(ax):
 
@@ -49,8 +55,12 @@ def make_plot(df):
 
     ax1.grid(axis='y', linewidth = .3)
 
+    df_y, df_n = split_data(df)
 
-    sns.lineplot(x = 'Date', y = 'Weight', data = df, marker="o", dashes = False, ax = ax1)
+    sns.lineplot(x = 'Date', y = 'Weight', data = df, dashes = False, ax = ax1, color = 'b', zorder = 1, label='trend')
+    sns.lineplot(x = 'Date', y = 'Weight', data = df_y, marker="o", dashes = False, ax = ax1, linewidth = 0, color = 'g', zorder = 2, label='train')
+    sns.lineplot(x = 'Date', y = 'Weight', data = df_n, marker="o", dashes = False, ax = ax1, linewidth = 0, color = 'r', zorder = 3, label='no train')
+    ax1.legend(loc = 'best')
     line_plot_settings(ax1)
     date_form = DateFormatter("%d %b")
     ax1.xaxis.set_major_formatter(date_form)
